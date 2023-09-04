@@ -355,19 +355,12 @@ mvn  clean  install
 ```shell
 
 mvn  archetype:generate  \
-
 -DgroupId=tech.zerofiltre \
-
 -DartifactId=sample-multimodule \
-
 -Dversion=1.0-SNAPSHOT \
-
 -DarchetypeGroupId=org.apache.maven.archetypes \
-
 -DarchetypeArtifactId=maven-archetype-quickstart \
-
 -DarchetypeVersion=1.4 \
-
 -Dpackaging=pom
 
 ```
@@ -375,9 +368,7 @@ mvn  archetype:generate  \
   
 
 ```shell
-
 cd  sample-multimodule
-
 ```
 
   
@@ -387,61 +378,37 @@ cd  sample-multimodule
   
 
 ```shell
-
 mvn  archetype:generate  \
-
 -DgroupId=tech.zerofiltre.common \
-
 -DartifactId=common \
-
 -Dversion=1.0-SNAPSHOT \
-
 -DarchetypeGroupId=org.apache.maven.archetypes \
-
 -DarchetypeArtifactId=maven-archetype-quickstart \
-
 -DarchetypeVersion=1.4
-
 ```
 
   
 
 ```shell
-
 mvn  archetype:generate  \
-
 -DgroupId=tech.zerofiltre.services \
-
 -DartifactId=services \
-
 -Dversion=1.0-SNAPSHOT \
-
 -DarchetypeGroupId=org.apache.maven.archetypes \
-
 -DarchetypeArtifactId=maven-archetype-quickstart \
-
 -DarchetypeVersion=1.4
-
 ```
 
   
 
 ```shell
-
 mvn  archetype:generate  \
-
 -DgroupId=tech.zerofiltre.web \
-
 -DartifactId=web \
-
 -Dversion=1.0-SNAPSHOT \
-
 -DarchetypeGroupId=org.apache.maven.archetypes \
-
 -DarchetypeArtifactId=maven-archetype-quickstart \
-
 -DarchetypeVersion=1.4
-
 ```
 
   
@@ -536,37 +503,23 @@ Dans le pom parent et fils, les plugins se répètent
 
   
 
-- Supprimez les sections `properties
+- Supprimez les sections `properties` des fils qui seront héritées du parent
 
   
 
-` des fils qui seront héritées du parent
-
-  
-
-- Remplacez la dépendance junit par celle-ci, tel que l'on a fait dans `common`
-
-  
+- Remplacez la dépendance junit dans chaque projet fisl par celle-ci, tel que l'on a fait dans `common` :
 
 ```xml
-
-<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
 
 <dependency>
 
 <groupId>org.junit.jupiter</groupId>
 
-<artifactId>junit-jupiter-engine</artifactId>
-
-<version>5.10.0</version>
-
-<scope>test</scope>
+<artifactId>junit-jupiter-api</artifactId>
 
 </dependency>
 
-```
-
-  
+``` 
 
 ### ii/ Configuration du plugin surefire pour l'exécution des tests
 
@@ -580,7 +533,7 @@ Ouvrir la classe `App.java` de `common`, `service` et `web` et créer la méthod
 
 boolean  testMe(String value){
 
-return  "theGoodValue".equals(value);
+    return  "theGoodValue".equals(value);
 
 }
 

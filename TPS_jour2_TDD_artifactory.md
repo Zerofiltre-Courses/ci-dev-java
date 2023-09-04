@@ -1,103 +1,42 @@
+# Guide pour les TPs du jour 2
+
+## Test driven development
+
+Le but sera de mettre l'accent sur des baby steps pour découvrir l'implémentation de l'algorithme de la feature
 
 Reprenons le projet Zerofiltre : 
+Déplacez-vous sur la branche: 
 
-Accent :
+### 1/ Compléter une feature en TDD 
 
-   baby steps pour découvrir la feature et l'algorithme de la feature
-
-
-1/ Compléter une feature en TDD 
-
-Nous allons écrire ce test ensemble :
-	execute_PutInReview_andSendNotification_OnAuthorButNotAdmin
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+Nous allons écrire ce test ensemble : ``execute_PutInReview_andSendNotification_OnAuthorButNotAdmin``
 	
 	
 
-2/ Implémenter une nouvelle feature en TDD 
+### 2/ Implémenter une nouvelle feature en TDD 
 
-https://trello.com/c/lyFfoaJy/407-restreindre-lacc%C3%A8s-aux-articles-par-id
-
-
+[Feature à implémenter](https://trello.com/c/lyFfoaJy/407-restreindre-lacc%C3%A8s-aux-articles-par-id)
 
 
+## Releases et snapshots maven
 
+### 1/ Exploration du fichier settings.xml 
 
-
-
-
+`nano /etc/maven/settings.xml`
 
 
 
+### 2/ Déployer le jar sur un repo maven distant
+
+Créer un compte sur [artifactory cloud](https://jfrog.com/fr/start-free/) => choisir la version cloud => utiliser aws => suivre la configuration accompagnée
 
 
 
+#### i. Déploiement de la snapshot
 
+La configuration générée par artifactory devrait ressembler à ceci: 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3/ Exploration du fichier settings.xml 
-
-nano /etc/maven/settings.xml
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3/ déployer le jar sur un repo maven distant
-
-Notions 
-
-Créer un compte sur artifactory cloud. => choisir la version cloud => utiliser aws => suivre la configuration accompagnée
-
-
-
-A/ SNAPSHOT
-
-a devrait ressembler à ceci mais pas exactement ceci
-
+````xml
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -113,6 +52,7 @@ a devrait ressembler à ceci mais pas exactement ceci
       <id>snapshots</id>
     </server>
   </servers>
+
   <profiles>
     <profile>
 	
@@ -159,10 +99,13 @@ a devrait ressembler à ceci mais pas exactement ceci
       <id>artifactory</id>
 	  
     </profile>
+
   </profiles>
+
   <activeProfiles>
     <activeProfile>artifactory</activeProfile>
   </activeProfiles>
+
 </settings>
 
 
@@ -174,68 +117,71 @@ a devrait ressembler à ceci mais pas exactement ceci
     </snapshotRepository>
 </distributionManagement>
 
-
+````
 
 
 Définissez les variables d'environnement nécessaires: 
 
+```
 echo "export ARTIFACTORY_SERVER_USERNAME=<nom_utilisateur_genere>" >> ~/.bashrc
 echo "export ARTIFACTORY_SERVER_PASSWORD=<mot_de_passe_genere>" >> ~/.bashrc
 
 source ~/.bashrc
+```
+
 
 
 Puis :
- mvn clean deploy -DskipIntegrationTests -s .m2/settings.xml
+
+ `mvn clean deploy -DskipIntegrationTests -s .m2/settings.xml`
  
 Le  deploy sera utilisé.
 
 
-
-
-
-
-
-
-
-2/ RELEASE
+#### ii. Déploiement de la release
 
 Nous allons déployer une release de notre produit
 
 Définir la version de l'artefact à configurer : 
 
-mvn versions:set -DnewVersion=0.0.1
+`mvn versions:set -DnewVersion=0.0.1`
 
 
-Puis créer un repository de releases sous jfrog : artifacts ==> set me up ==> libs-release => Deploy : copier le repository
+Puis créer un repository de releases sous jfrog : artifacts ==> set me up ==> libs-release => Deploy : copier le repository et l'ajouter dans la section `distributionManagement`
 
 
+````xml
 <repository>
         <id>central</id>
         <name>a0ufk52h2bit9-artifactory-primary-0-releases</name>
         <url>https://zerofiltre.jfrog.io/artifactory/libs-release</url>
 </repository>
+````
 
-Puis: mvn clean deploy -DskipTests -s .m2/settings.xml
-
-
-
-
-C/ Prise en compte de maven central
+Puis: `mvn clean deploy -DskipTests -s .m2/settings.xml`
 
 
-Il faut définir le plugin repository et repository maven central à la main 
 
-        <repository>
+
+#### iii. Télécharger les deps depuis maven central si le repo entreprise pas dispo
+
+
+Il faut définir le plugin repository et repository maven central à la main dans la partie `profile`
+
+```xml
+
+       <repository>
           <id>central</id>
           <url>https://repo.maven.apache.org/maven2</url>
         </repository>
 
-		<pluginRepository>
+		   <pluginRepository>
           <id>central</id>
           <url>https://repo.maven.apache.org/maven2</url>
         </pluginRepository> 
 
+```
+        
 
 
 
