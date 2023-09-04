@@ -62,9 +62,7 @@ Sous VScode : Remote explorer (menu de gauche) + sélectionner la machine `<user
 
   
 
-```markdown
-
-En Forkant, décochez "cloner la branche uniquement" car on va travailler sur une branche différente.
+En Forkant, décochez "cloner la branche main uniquement" car on va travailler sur une branche différente.
 
   
 
