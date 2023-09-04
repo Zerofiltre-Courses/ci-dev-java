@@ -1,0 +1,317 @@
+
+Reprenons le projet Zerofiltre : 
+
+Accent :
+
+   baby steps pour découvrir la feature et l'algorithme de la feature
+
+
+1/ Compléter une feature en TDD 
+
+Nous allons écrire ce test ensemble :
+	execute_PutInReview_andSendNotification_OnAuthorButNotAdmin
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+2/ Implémenter une nouvelle feature en TDD 
+
+https://trello.com/c/lyFfoaJy/407-restreindre-lacc%C3%A8s-aux-articles-par-id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3/ Exploration du fichier settings.xml 
+
+nano /etc/maven/settings.xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3/ déployer le jar sur un repo maven distant
+
+Notions 
+
+Créer un compte sur artifactory cloud. => choisir la version cloud => utiliser aws => suivre la configuration accompagnée
+
+
+
+A/ SNAPSHOT
+
+a devrait ressembler à ceci mais pas exactement ceci
+
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <servers>
+    <server>
+      <username>${env.ARTIFACTORY_SERVER_USERNAME}</username>
+      <password>${env.ARTIFACTORY_SERVER_PASSWORD}</password>
+      <id>central</id>
+    </server>
+    <server>
+      <username>${env.ARTIFACTORY_SERVER_USERNAME}</username>
+      <password>${env.ARTIFACTORY_SERVER_PASSWORD}</password>
+      <id>snapshots</id>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+	
+      <repositories>
+	  
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>https://zerofiltre.jfrog.io/artifactory/libs-release</url>
+        </repository>
+		
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>https://zerofiltre.jfrog.io/artifactory/libs-snapshot</url>
+        </repository>
+		
+      </repositories>
+	  
+      <pluginRepositories>
+	  
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>libs-release</name>
+          <url>https://zerofiltre.jfrog.io/artifactory/libs-release</url>
+        </pluginRepository>
+		
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>libs-snapshot</name>
+          <url>https://zerofiltre.jfrog.io/artifactory/libs-snapshot</url>
+        </pluginRepository>
+		
+      </pluginRepositories>
+	  
+      <id>artifactory</id>
+	  
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+</settings>
+
+
+<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>a0ufk52h2bit9-artifactory-primary-0-snapshots</name>
+        <url>https://zerofiltre.jfrog.io/artifactory/libs-snapshot</url>
+    </snapshotRepository>
+</distributionManagement>
+
+
+
+
+Définissez les variables d'environnement nécessaires: 
+
+echo "export ARTIFACTORY_SERVER_USERNAME=<nom_utilisateur_genere>" >> ~/.bashrc
+echo "export ARTIFACTORY_SERVER_PASSWORD=<mot_de_passe_genere>" >> ~/.bashrc
+
+source ~/.bashrc
+
+
+Puis :
+ mvn clean deploy -DskipIntegrationTests -s .m2/settings.xml
+ 
+Le  deploy sera utilisé.
+
+
+
+
+
+
+
+
+
+2/ RELEASE
+
+Nous allons déployer une release de notre produit
+
+Définir la version de l'artefact à configurer : 
+
+mvn versions:set -DnewVersion=0.0.1
+
+
+Puis créer un repository de releases sous jfrog : artifacts ==> set me up ==> libs-release => Deploy : copier le repository
+
+
+<repository>
+        <id>central</id>
+        <name>a0ufk52h2bit9-artifactory-primary-0-releases</name>
+        <url>https://zerofiltre.jfrog.io/artifactory/libs-release</url>
+</repository>
+
+Puis: mvn clean deploy -DskipTests -s .m2/settings.xml
+
+
+
+
+C/ Prise en compte de maven central
+
+
+Il faut définir le plugin repository et repository maven central à la main 
+
+        <repository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+
+		<pluginRepository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+        </pluginRepository> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
