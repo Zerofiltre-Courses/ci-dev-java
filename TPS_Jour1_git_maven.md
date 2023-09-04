@@ -76,7 +76,7 @@ Dans la VM :
 
 ```shell
 
-cat  ~/.ssh/<username>_inow_ed25519
+cat  ~/.ssh/<username>_inow_ed25519.pub
 
 ```
 
