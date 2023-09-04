@@ -204,7 +204,7 @@ Puisqu'il y a des modifications sur la branche principale :
 
 ```shell
 
-git  checkout  email-on_article_in_review_inow
+git  checkout  email-on_article_in_review_inow_jour_1
 
 git  pull
 
