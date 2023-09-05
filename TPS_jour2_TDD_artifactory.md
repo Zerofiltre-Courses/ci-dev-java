@@ -4,18 +4,24 @@
 
 Le but sera de mettre l'accent sur des baby steps pour découvrir l'implémentation de l'algorithme de la feature
 
-Reprenons le projet Zerofiltre : 
-Déplacez-vous sur la branche: 
 
-### 1/ Compléter une feature en TDD 
+### 1/ Implémenter une feature en TDD avec Junit
 
-Nous allons écrire ce test ensemble : ``execute_PutInReview_andSendNotification_OnAuthorButNotAdmin``
+#### Gestion d'un panier de courses : ShippingCart
+Le panier de course devrait permettre aux clients:
+- d'ajouter et de retirer des éléments : CartItem
+- de calculer le prix total du panier
+- d'appliquer une ristourne de 10 % si le panier a plus de 10 éléments et la somme totale > 150 €
+
 	
 	
 
-### 2/ Implémenter une nouvelle feature en TDD 
+### 2/ Implémenter une feature en TDD avec Junit et Mockito
 
-[Feature à implémenter](https://trello.com/c/lyFfoaJy/407-restreindre-lacc%C3%A8s-aux-articles-par-id)
+Reprenons le projet Zerofiltre, déplacez-vous sur la branche: email-on_article_in_review_inow_jour2
+
+[Feature à implémenter](https://trello.com/c/lyFfoaJy/407-restreindre-lacc%C3%A8s-aux-articles-par-id)  
+
 
 
 ## Releases et snapshots maven
