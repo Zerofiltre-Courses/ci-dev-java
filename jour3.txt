@@ -1,26 +1,23 @@
+# Suivi des TPS du jour 3
 
-A/ Installation sonarqube on premise
+## A/ Installation sonarqube 'on premise'
 
+Installation avec une BD h2 en mémoire :
 
-docker pull sonarqube 
+	* h2 => prendre la main (données non persistées)
 
-
-Installation avec une BD h2 en mémoire 
-
-	h2 => prendre la main (données non persistées)
-
-	postgresql ou mysql pour une utilisation en prod 
+	* postgresql ou mysql pour une utilisation en prod 
 
 
-docker run --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+`docker run --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest`
 
 
-Ouvrir l'interface graphique
-localhost:9000
+Ouvrir l'interface graphique :
+`http://localhost:9000`
 
 
 identifiants par défaut: 
-admin/admin 
+username/password : `admin/admin`
 
 
 
