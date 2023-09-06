@@ -293,3 +293,9 @@ Installez le plugin "Job Configuration History" pour suivre les modifications de
 Puis, accédez à : Dashboard => Job Config History pour la liste des modifications.
 
 Dans Manage Jenkins => Job Config History, configurez les fichiers à exclure, l'emplacement de l'historique, etc.
+
+## TP Configurer le Job de release manuel
+
+### Déclencher manuellement le Job pour lancer une release 
+
+### Rentrer la version via un paramètre
