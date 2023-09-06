@@ -81,7 +81,7 @@ docker run \
 - Pour connaître l'adresse IP de Jenkins :
 
 ```sh
-docker inspect jenkins-blueocean | jq '.[0].NetworkSettings.IPAddress'
+docker inspect jenkins-blueocean | jq '.[0].NetworkSettings.Networks.jenkins.IPAddress'
 ```
 
 - **Email**: Utilisez l'adresse e-mail que vous utiliserez comme passerelle pour le serveur de messagerie.
