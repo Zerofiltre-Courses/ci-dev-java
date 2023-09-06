@@ -1,18 +1,16 @@
- 
+# Suivi des TPs du jour 4  
 
-TP: Installation Jenkins avec les plugins nécessaires
+## Installation Jenkins avec les plugins nécessaires
 
-Reprendre l'installation et adapter avec ceci :
 
-https://www.jenkins.io/doc/tutorials/build-a-java-app-with-maven/
-
-A/ Démarrage
+### A/ Démarrage
 
 docker network create jenkins 
 
 
-a/ Container dind : Car nous allons utiliser des agents docker 
+## a/ Container dind : Car nous allons utiliser des agents docker 
 
+```sh
 docker run --name jenkins-docker --rm --detach \
   --privileged --network jenkins --network-alias docker \
   --env DOCKER_TLS_CERTDIR=/certs \
@@ -20,19 +18,19 @@ docker run --name jenkins-docker --rm --detach \
   --volume jenkins-data:/var/jenkins_home \
   --publish 3000:3000 --publish 5000:5000 --publish 2376:2376 \
   docker:dind --storage-driver overlay2
-  
+ ``` 
 
 
-b/  Construction d'un Container Jenkins
+## b/  Construction d'un Container Jenkins
 
-mkdir jenkins
-cd jenkins 
+`mkdir jenkins && cd jenkins `
 
-nano Dockerfile 
+`nano Dockerfile `
 
 
 Y coller le contenu suivant : 
 
+```
 FROM jenkins/jenkins:2.414.1-jdk17
 USER root
 RUN apt-get update && apt-get install -y lsb-release
@@ -46,60 +44,39 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean:1.27.6 docker-workflow:572.v950f58993843"
 
+```
 
-docker build -t myjenkins-blueocean:2.414.1-1 .
+`docker build -t myjenkins-blueocean:2.414.1-1 .`
 
 
 
 
+## B/ Installer les Plugins par défaut et configurations initiales 
  
- 
- 
- 
- B/ Installer les Plugins par défaut et configurations initiales 
- 
-  Connexion sur localhost:8080
+  **Connexion**: `http://localhost:8080`
   
   Entrer le mot de passe obtenu depuis les logs du container
   
   
-  URL jenkins: http://<ip_jenkins>:8080
+  **URL jenkins**: `http://<ip_jenkins>:8080`
   
-  Connaître l'ip jenkins : 
+  **Connaître l'ip jenkins** : 
+
 	docker inspect jenkins-blueocean | jq '.[0].NetworkSettings'
 	
   Récupérer la valeur du Champ : IpAddress
   
+  **Email**: Utiliser l'adresse email que vous utiliserez comme passerelle pour le serveur de mail.
+
   
-  
-  
-  
-  
-  
+## C/ Exploration du répertoire jenkins_home
  
- 
- 
- C/ Exploration du répertoire jenkins_home
- 
-  sudo ls -l /var/lib/docker/volumes/jenkins-data/_data
+  `sudo ls -l /var/lib/docker/volumes/jenkins-data/_data`
   
   il contient les dossiers que nous avons listés comme étant le coeur de l'installation Jenkins 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-E/ Exécution notre premier Job sous Jenkins 
+ ## E/ Exécution notre premier Job sous Jenkins 
 
 
  - Créer le job pour compiler et empaquetter toute nouveau code.
