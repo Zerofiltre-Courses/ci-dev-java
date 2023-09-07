@@ -118,19 +118,11 @@ Le pipeline fera un checkout des différentes branches mais échouera car aucun 
 
 1. Ouvrez le projet et accédez à la branche : `email-on_article_in_review_inow_jour4`.
 
-2. Avant de commencer à écrire le script, installez ces outils sous Jenkins :
 
-   - Dashboard => Manage Jenkins => Tools
-     - JDK Installations => Add JDK
-       - Donnez le nom exact utilisé dans le pipeline dans la section "Tools"
-       - Laissez "Install Automatically" activé
-     - Maven Installation => Add Maven
-       - Donnez le nom exact utilisé dans le pipeline dans la section "Tools" (Maven3)
-       - Laissez "Install Automatically" activé
 
 ## F/ Ajout d'une phase de test + rapport de test après la construction
 
-Dans le projet, créez le fichier Jenkins et ajoutez-y ceci :
+Dans le projet, créez le fichier Jenkinsfile et ajoutez-y ceci :
 
 ```groovy
 stage('Test') {
