@@ -199,7 +199,7 @@ Utilisez le plugin [Jacoco](https://plugins.jenkins.io/jacoco/).
 
 1. Configurez un webhook de retour vers Jenkins :
    - Administration => Configuration => Webhooks
-   - URL du webhook : `http://<ip_jenkins>:8090/sonarqube-webhook/`
+   - URL du webhook : `http://<ip_jenkins>:8080/sonarqube-webhook/`
    - Référentiel sur les webhooks Sonar : [Webhooks Sonar](http://localhost:9000/documentation/project-administration/webhooks/)
    - Référentiel d'intégration à SonarQube : [Intégration SonarQube](https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/jenkins-extension-sonarqube/)
 
