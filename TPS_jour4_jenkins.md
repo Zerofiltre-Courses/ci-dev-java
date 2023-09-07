@@ -352,6 +352,7 @@ Dans Manage Jenkins => Job Config History, configurez les fichiers à exclure, l
 
 ## TP Configurer le Job de release manuel
 
-### Déclencher manuellement le Job pour lancer une release 
+### Déclencher manuellement le Job pour lancer une release
 
-### Rentrer la version via un paramètre
+### Rentrer la version via un paramètre sachant que le job va s'exécuter sur la branche de release uniquement
+
