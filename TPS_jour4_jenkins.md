@@ -264,7 +264,7 @@ stage('Package and Deploy') {
 
 ### Configuration du client de messagerie
 
-1. Installez le plugin Email Extension Plugin.
+1. Installez le plugin Email Extension Plugin s'il n'est pas encore installé.
 
 2. Puis, dans Manage Jenkins => Manage system, faites défiler jusqu'à "Extended Email Notification" (et non "Email Notification").
 
