@@ -276,6 +276,39 @@ stage('Package and Deploy') {
      - Nom d'utilisateur : adresse e-mail Gmail
      - Mot de passe : Mot de passe de l'application Google (comment générer le mot de passe de l'application : [Lien](https://support.google.com/accounts/answer/185833?hl=en))
    - Utilisez TLS.
+  
+4. Dans le fichier Jenkinsfile rajouter les actions de post build o la racine de l'objet pipeline :
+
+   ```
+      post {
+        success {
+            script {
+                emailext(
+                    subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                    body: "The build has completed successfully. Check the artifacts here: ${env.BUILD_URL}",
+                    to: "",
+                )
+            }
+        }
+        failure {
+            script {
+                emailext(
+                    subject: "Build Failure: ${currentBuild.fullDisplayName}",
+                    body: "The build failed. Check the artifacts here: ${env.BUILD_URL}",
+                    to: getAuthorEmail(),
+                )
+            }
+        }
+    }
+   ```
+
+  5. Définir la fonction qui va nous permettre de récupérer l'adresse email de l'auteur du commit
+     
+   ```
+   String getAuthorEmail(){
+    return sh(script: 'git log -1 --format="%ae" \$GIT_COMMIT', returnStdout: true).trim()
+   }
+   ```
 
 ## NOTIONS DE SÉCURITÉ JENKINS
 
