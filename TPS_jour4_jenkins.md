@@ -183,13 +183,13 @@ Utilisez le plugin [Jacoco](https://plugins.jenkins.io/jacoco/).
 1. Installez le plugin : SonarQube Scanner.
 
 2. Allez sous SonarQube pour générer un token pour Jenkins :
-   - Générez un token pour Jenkins : `squ_a8969e37a24723e3ebcc61979ea777d00889bfbd`
+   - Générez un token pour Jenkins
 
 3. Puis, dans Manage Jenkins :
    - System => Ajoutez un serveur SonarQube
      - Nom : `SonarqubeServer`
      - Connectez le conteneur Sonar au sous-réseau Jenkins : `docker network connect jenkins sonarqube`
-     - Obtenez l'adresse IP du serveur : `docker inspect sonarqube | jq '.[0].NetworkSettings.IPAddress'`
+     - Obtenez l'adresse IP du serveur : `docker inspect sonarqube | jq '.[0].NetworkSettings.Networks.jenkins.IPAddress'`
      - URL du serveur SonarQube : `http://<ipsonar_reseau_jenkins>:9000`
      - Ajoutez le secret de type "Secret Key" avec le token créé préc
 
