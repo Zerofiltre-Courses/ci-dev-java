@@ -118,22 +118,53 @@ Le pipeline fera un checkout des différentes branches mais échouera car aucun 
 
 1. Ouvrez le projet et accédez à la branche : `email-on_article_in_review_inow_jour4`.
 
+2. Créer un fichier Jenkinsfile et mettey le contenu:
 
+```
+pipeline {
+    agent {
+        dockerfile {
+            filename 'Dockerfile.build'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+
+    stages {
+        
+    }
+}
+```
+
+Nous utilisons un agent de type docker qui sera créé et supprimé à la volée le temps de l'exécution du pipeline.
+Par conséquent nous aurons besoin d'un fichier dockerfile décrivant le container en question : 
+
+À la racine du projet, créez le fichier `Dockerfile.build` suivant: 
+
+```
+FROM maven:3.9.4-eclipse-temurin-17-alpine
+RUN apk add --no-cache git
+```
+
+3. 
 
 ## F/ Ajout d'une phase de test + rapport de test après la construction
 
 Dans le projet, créez le fichier Jenkinsfile et ajoutez-y ceci :
 
 ```groovy
-stage('Test') {
-    steps {
-        sh 'mvn test'
-    }
-    post {
-        always {
-            junit 'target/surefire-reports/*.xml'
-        }
-    }
+stages{
+ ...
+  stage('Test') {
+      steps {
+          sh 'mvn test'
+      }
+      post {
+          always {
+              junit 'target/surefire-reports/*.xml'
+          }
+      }
+  }
+...
 }
 ```
 
