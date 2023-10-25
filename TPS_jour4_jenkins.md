@@ -286,7 +286,8 @@ stage('Package and Deploy') {
                 emailext(
                     subject: "Build Successful: ${currentBuild.fullDisplayName}",
                     body: "The build has completed successfully. Check the artifacts here: ${env.BUILD_URL}",
-                    to: "",
+                    from: "sender.email@gmail.com",
+                    to: getAuthorEmail(),
                 )
             }
         }
@@ -295,6 +296,7 @@ stage('Package and Deploy') {
                 emailext(
                     subject: "Build Failure: ${currentBuild.fullDisplayName}",
                     body: "The build failed. Check the artifacts here: ${env.BUILD_URL}",
+                    from: "sender.email@gmail.com",
                     to: getAuthorEmail(),
                 )
             }
@@ -318,7 +320,7 @@ stage('Package and Deploy') {
 
 ### ii/ Mise en place d'une gestion granulaire des rôles
 
-- Dashboard => Manage Jenkins => Role-based Authorization Strategy
+- Dashboard => Manage Jenkins => Plugins => Role-based Authorization Strategy
 
 Puis, Dashboard => Manage Jenkins => Security => Authorization => Role Based Authorization Strategy : save. Si vous ne voyez pas "authorization", redémarrez Jenkins.
 
